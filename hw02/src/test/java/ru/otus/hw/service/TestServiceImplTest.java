@@ -2,6 +2,7 @@ package ru.otus.hw.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.hw.dao.QuestionDao;
@@ -25,7 +26,8 @@ class TestServiceImplTest {
     @Mock
     private QuestionDao questionDao;
 
-    private final AnswerService answerService = new AnswerServiceImpl();
+    @InjectMocks
+    private AnswerServiceImpl answerService;
 
 
     @Test

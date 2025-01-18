@@ -12,7 +12,7 @@ public class AppProperties implements TestConfig, TestFileNameProvider {
 
     private String testFileName;
 
-    public AppProperties(@Value("${test.rightAnswersCountToPass:4") int rightAnswersCountToPass,
+    public AppProperties(@Value("${test.rightAnswersCountToPass:4}") int rightAnswersCountToPass,
                          @Value("${test.fileName}") String testFileName) {
         this.rightAnswersCountToPass = rightAnswersCountToPass;
         this.testFileName = testFileName;
