@@ -1,0 +1,13 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+  messages:
+    baseName: messages
+    encoding: UTF-8
+    fallbackToSystemLocale: false
+test:
+  locale: en-US
+  rightAnswersCountToPass: 4
+  fileNameByLocaleTag:
+    en-US: questions_test.csv
