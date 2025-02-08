@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      database: example
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.7
+
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.otus.hw.mongock.changelog
+  mongo-db:
+    host: localhost
+    port: 27017
+    database: example
+    write-concern:
+      journal: false
+    read-concern: local
