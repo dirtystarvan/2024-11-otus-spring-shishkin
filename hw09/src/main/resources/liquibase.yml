@@ -68,10 +68,13 @@ databaseChangeLog:
               - column:
                   name: book_id
                   type: bigint
-                  constraints:
-                    foreignKeyName: fk_comments_book
-                    referencedTableName: books
-                    referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_comments_book
+            baseTableName: comments
+            baseColumnNames: book_id
+            referencedTableName: books
+            referencedColumnNames: id
+            onDelete: CASCADE
   - changeSet:
       id: 2
       author: admin
