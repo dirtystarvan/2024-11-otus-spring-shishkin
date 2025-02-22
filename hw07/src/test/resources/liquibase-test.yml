@@ -4,6 +4,7 @@ databaseChangeLog:
       author: admin
       changes:
         - createTable:
+            tableName: authors
             columns:
               - column:
                   name: id
@@ -14,8 +15,8 @@ databaseChangeLog:
               - column:
                   name: full_name
                   type: varchar(255)
-            tableName: authors
         - createTable:
+            tableName: genres
             columns:
               - column:
                   name: id
@@ -26,8 +27,8 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(255)
-            tableName: genres
         - createTable:
+            tableName: books
             columns:
               - column:
                   name: id
@@ -52,8 +53,8 @@ databaseChangeLog:
                     foreignKeyName: fk_books_genre
                     referencedTableName: genres
                     referencedColumnNames: id
-            tableName: books
         - createTable:
+            tableName: comments
             columns:
               - column:
                   name: id
@@ -67,11 +68,13 @@ databaseChangeLog:
               - column:
                   name: book_id
                   type: bigint
-                  constraints:
-                    foreignKeyName: fk_comments_book
-                    referencedTableName: books
-                    referencedColumnNames: id
-            tableName: comments
+        - addForeignKeyConstraint:
+            constraintName: fk_comments_book
+            baseTableName: comments
+            baseColumnNames: book_id
+            referencedTableName: books
+            referencedColumnNames: id
+            onDelete: CASCADE
   - changeSet:
       id: 2
       author: admin
