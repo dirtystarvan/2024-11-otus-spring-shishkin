@@ -20,9 +20,10 @@ de:
         version: 4.0.2
 
 mongock:
+  enabled: true
   runner-type: "ApplicationRunner"
   change-logs-scan-package:
-    - ru.otus.hw.mongock.changelog
+    - ru.otus.hw.mongo.mongock
   mongo-db:
     write-concern:
       journal: false

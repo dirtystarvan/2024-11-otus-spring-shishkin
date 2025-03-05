@@ -5,17 +5,28 @@ spring:
   data:
     mongodb:
       database: example
+      host: localhost
+
+  shell:
+    interactive:
+      enabled: true
+    noninteractive:
+      enabled: false
+    command:
+      version:
+        enabled: false
 
 de:
   flapdoodle:
     mongodb:
       embedded:
-        version: 7.0.7
+        version: 4.0.2
+
 
 mongock:
   runner-type: "InitializingBean"
   change-logs-scan-package:
-    - ru.otus.hw.mongock.changelog
+    - ru.otus.hw.mongo.mongock
   mongo-db:
     host: localhost
     port: 27017
