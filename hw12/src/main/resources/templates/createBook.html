@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form id="create-form" action="createBook.html" th:method="post" th:action="@{/createBook}" th:object="${book}">
+    <h3>Book:</h3>
+
+    <div class="row">
+        <label for="title-input">Title:</label>
+        <input id="title-input" name="title" type="text" value="Dolor sit amet" th:value="*{title}"/>
+    </div>
+
+    <div class="row">
+        <label for="author-input">Author:</label>
+        <select th:field="*{author.id}" id="author-input" form="create-form">
+            <option th:each="newAuthor : ${authors}"
+                    th:value="${newAuthor.id}"
+                    th:text="${newAuthor.fullName}">
+                Lorem Ipsum
+            </option>
+        </select>
+    </div>
+
+    <div class="row">
+        <label for="genre-input">Author:</label>
+        <select th:field="*{genre.id}" id="genre-input" form="create-form">
+            <option th:each="newGenre : ${genres}"
+                    th:value="${newGenre.id}"
+                    th:text="${newGenre.name}">
+                Lorem Ipsum
+            </option>
+        </select>
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+        <a href="allBooks.html" th:href="@{/}"><button type="button">Cancel</button></a>
+    </div>
+</form>
+</body>
+</html>
