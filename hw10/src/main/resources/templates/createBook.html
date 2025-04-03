@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form id="create-form" action="createBook.html" th:method="post">
+    <h3>Book:</h3>
+
+    <div class="row">
+        <label for="title-input">Title:</label>
+        <input id="title-input" name="title" type="text" value="Dolor sit amet"/>
+    </div>
+
+    <div class="row">
+        <label for="author-input">Author:</label>
+        <select id="author-input" form="create-form"></select>
+    </div>
+
+    <div class="row">
+        <label for="genre-input">Genre:</label>
+        <select id="genre-input" form="create-form"></select>
+    </div>
+
+    <div class="row">
+        <button id="save-button" type="submit">Save</button>
+        <a href="allBooks.html" th:href="@{/}"><button type="button">Cancel</button></a>
+    </div>
+</form>
+
+<script>
+    fetch('/api/authors')
+        .then(response => response.json())
+        .then(authors => {
+            var authorInput = document.getElementById('author-input');
+
+            authors.forEach(author => {
+                var option = document.createElement('option');
+                option.value = author.id;
+                option.text = author.fullName;
+
+                authorInput.appendChild(option);
+            });
+        })
+        .catch(error => console.log(error));
+
+    fetch('/api/genres')
+        .then(response => response.json())
+        .then(genres => {
+            var genreInput = document.getElementById('genre-input');
+
+            genres.forEach(genre => {
+                var option = document.createElement('option');
+                option.value = genre.id;
+                option.text = genre.name;
+
+                genreInput.appendChild(option);
+            });
+        })
+        .catch(error => console.log(error));
+
+    window.onload = function() {
+        var form = document.getElementById('create-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var genre = {
+                id: document.getElementById('genre-input').value
+            };
+
+            var author = {
+                id: document.getElementById('author-input').value,
+            };
+
+            var book = {
+                title: document.getElementById('title-input').value,
+                author: author,
+                genre: genre
+            };
+
+            fetch('/api/books', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(book)
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error));
+
+            window.location.href = '/';
+        });
+    };
+</script>
+
+</body>
+</html>
