@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form id="delete-form" action="delteteBook.html" th:method="post" th:action="@{/deleteBook(id=${book.id})}" th:object="${book}">
+    <h3>Are you sure to DELETE this book:</h3>
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" type="text" readonly="readonly" value="1" th:value="*{id}"/>
+    </div>
+
+    <div class="row">
+        <label for="title-input">Title:</label>
+        <input id="title-input" name="title" type="text" readonly="readonly" value="Dolor sit amet" th:value="*{title}"/>
+    </div>
+
+    <div class="row">
+        <label for="author-input">Author:</label>
+        <input id="author-input" name="author" type="text" readonly="readonly" value="Dolor sit amet" th:value="*{author.id}" th:text="*{author.fullName}"/>
+    </div>
+
+    <div class="row">
+        <label for="genre-input">Genre:</label>
+        <input id="genre-input" name="genre" type="text" readonly="readonly" value="Dolor sit amet" th:value="*{genre.id}" th:text="*{genre.name}"/>
+    </div>
+
+    <div class="row">
+        <button type="submit">Delete</button>
+        <a href="allBooks.html" th:href="@{/}"><button type="button">Cancel</button></a>
+    </div>
+</form>
+</body>
+</html>
