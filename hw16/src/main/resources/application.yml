@@ -1,0 +1,45 @@
+spring:
+  data:
+    rest:
+      base-path: /hateoas
+  datasource:
+    url: jdbc:h2:mem:maindb
+    username: sa
+    password: sa
+  sql:
+    init:
+      mode: never
+      data-locations: data.sql
+      schema-locations: schema.sql
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase.yml
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    prometheus:
+      enabled: true
+    logfile:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+logging:
+  file:
+    name: application.log
