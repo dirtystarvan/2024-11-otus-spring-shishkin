@@ -3,6 +3,7 @@ package ru.otus.hw.controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -32,7 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(BookController.class)
-@Import(SecurityConfiguration.class)
+@Import({SecurityConfiguration.class})
+@AutoConfigureDataJpa
 @AutoConfigureTestDatabase
 class BookControllerWebMvcTest {
 
@@ -131,7 +133,7 @@ class BookControllerWebMvcTest {
     void updateBookPostTest() throws Exception {
         var testBook = BOOKS.get(0);
         mvc.perform(post("/editBook").flashAttr("book", testBook))
-                        .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/"));
 
         verify(bookService, times(1)).update(
                 testBook.getId(), testBook.getTitle(), testBook.getAuthor().getId(), testBook.getGenre().getId()
@@ -192,3 +194,5 @@ class BookControllerWebMvcTest {
     }
 
 }
+
+

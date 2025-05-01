@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.otus.hw.repositories.UserDetailsRepository;
 
 /*
     login: admin - password: admin
@@ -38,8 +39,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public CustomUserDetailsService customUserDetailsService(PasswordEncoder encoder) {
-        return new CustomUserDetailsService(encoder);
+    public CustomUserDetailsService customUserDetailsService(UserDetailsRepository repository) {
+        return new CustomUserDetailsService(repository);
     }
 
     @Bean

@@ -82,10 +82,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: username
-                  type: varchar(255)
-              - column:
-                  name: authority
+                  name: role
                   type: varchar(255)
         - createTable:
             tableName: users
@@ -103,11 +100,12 @@ databaseChangeLog:
                   name: password
                   type: varchar(255)
               - column:
-                  name: enabled
-                  type: varchar(255)
-              - column:
-                  name: priority
-                  type: integer
+                  name: authority_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_authority
+                    referencedTableName: authorities
+                    referencedColumnNames: id
 
   - changeSet:
       id: 2
@@ -232,19 +230,13 @@ databaseChangeLog:
             tableName: authorities
             columns:
               - column:
-                  name: username
-                  value: 'admin'
-              - column:
-                  name: authority
+                  name: role
                   value: 'ROLE_ADMIN'
         - insert:
             tableName: authorities
             columns:
               - column:
-                  name: username
-                  value: 'user'
-              - column:
-                  name: authority
+                  name: role
                   value: 'ROLE_USER'
   - changeSet:
       id: 7
@@ -260,10 +252,7 @@ databaseChangeLog:
                   name: password
                   value: '$2a$12$Vwlrnifl5M4MMZB4zCJWJOB3mlJinnNiH7ECctzkKF9nNEoceV7kK'
               - column:
-                  name: enabled
-                  value: 'true'
-              - column:
-                  name: priority
+                  name: authority_id
                   value: '1'
         - insert:
             tableName: users
@@ -275,8 +264,5 @@ databaseChangeLog:
                   name: password
                   value: '$2a$12$3QY8/2vUxRa0AoKt1pXU.uEtiDZqLxQ6MKQEYTrkagDEL.e4MRLNq'
               - column:
-                  name: enabled
-                  value: 'true'
-              - column:
-                  name: priority
+                  name: authority_id
                   value: '2'
