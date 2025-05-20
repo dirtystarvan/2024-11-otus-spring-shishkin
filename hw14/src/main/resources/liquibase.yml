@@ -1,0 +1,158 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: admin
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  type: varchar(255)
+            tableName: authors
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+            tableName: genres
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: author_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_books_author
+                    referencedTableName: authors
+                    referencedColumnNames: id
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_books_genre
+                    referencedTableName: genres
+                    referencedColumnNames: id
+            tableName: books
+#        - createTable:
+#            columns:
+#              - column:
+#                  name: id
+#                  type: bigserial
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#              - column:
+#                  name: text
+#                  type: varchar(255)
+#              - column:
+#                  name: book_id
+#                  type: bigint
+#                  constraints:
+#                    foreignKeyName: fk_comments_book
+#                    referencedTableName: books
+#                    referencedColumnNames: id
+#            tableName: comments
+  - changeSet:
+      id: 2
+      author: admin
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_1'
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_2'
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_3'
+  - changeSet:
+      id: 3
+      author: admin
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_1'
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_2'
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_3'
+  - changeSet:
+      id: 4
+      author: admin
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_1'
+              - column:
+                  name: author_id
+                  value: '1'
+              - column:
+                  name: genre_id
+                  value: '1'
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_2'
+              - column:
+                  name: author_id
+                  value: '2'
+              - column:
+                  name: genre_id
+                  value: '2'
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_3'
+              - column:
+                  name: author_id
+                  value: '3'
+              - column:
+                  name: genre_id
+                  value: '3'

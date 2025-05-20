@@ -1,0 +1,34 @@
+spring:
+  batch:
+    initialize-schema: always
+    job:
+      enabled: false
+  data:
+    mongodb:
+      database: example
+  shell:
+    interactive:
+      enabled: false
+    noninteractive:
+      enabled: true
+    command:
+      version:
+        enabled: false
+  datasource:
+    url: jdbc:h2:mem:maindb
+    username: sa
+    password: sa
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase.yml
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
