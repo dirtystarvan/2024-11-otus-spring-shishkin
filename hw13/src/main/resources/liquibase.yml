@@ -1,0 +1,282 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: admin
+      changes:
+        - createTable:
+            tableName: authors
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  type: varchar(255)
+        - createTable:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: author_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_books_author
+                    referencedTableName: authors
+                    referencedColumnNames: id
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_books_genre
+                    referencedTableName: genres
+                    referencedColumnNames: id
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: text
+                  type: varchar(255)
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_comments_book
+                    referencedTableName: books
+                    referencedColumnNames: id
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: authority
+                  type: varchar(255)
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: enabled
+                  type: varchar(255)
+              - column:
+                  name: priority
+                  type: integer
+
+  - changeSet:
+      id: 2
+      author: admin
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_1'
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_2'
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: full_name
+                  value: 'Author_3'
+  - changeSet:
+      id: 3
+      author: admin
+      changes:
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_1'
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_2'
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: name
+                  value: 'Genre_3'
+  - changeSet:
+      id: 4
+      author: admin
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_1'
+              - column:
+                  name: author_id
+                  value: '1'
+              - column:
+                  name: genre_id
+                  value: '1'
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_2'
+              - column:
+                  name: author_id
+                  value: '2'
+              - column:
+                  name: genre_id
+                  value: '2'
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'BookTitle_3'
+              - column:
+                  name: author_id
+                  value: '3'
+              - column:
+                  name: genre_id
+                  value: '3'
+  - changeSet:
+      id: 5
+      author: admin
+      changes:
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: text
+                  value: 'Comment_1'
+              - column:
+                  name: book_id
+                  value: '1'
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: text
+                  value: 'Comment_2'
+              - column:
+                  name: book_id
+                  value: '2'
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: text
+                  value: 'Comment_3'
+              - column:
+                  name: book_id
+                  value: '2'
+  - changeSet:
+      id: 6
+      author: admin
+      changes:
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: authority
+                  value: 'ROLE_ADMIN'
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  value: 'user'
+              - column:
+                  name: authority
+                  value: 'ROLE_USER'
+  - changeSet:
+      id: 7
+      author: admin
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: password
+                  value: '$2a$12$Vwlrnifl5M4MMZB4zCJWJOB3mlJinnNiH7ECctzkKF9nNEoceV7kK'
+              - column:
+                  name: enabled
+                  value: 'true'
+              - column:
+                  name: priority
+                  value: '1'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'user'
+              - column:
+                  name: password
+                  value: '$2a$12$3QY8/2vUxRa0AoKt1pXU.uEtiDZqLxQ6MKQEYTrkagDEL.e4MRLNq'
+              - column:
+                  name: enabled
+                  value: 'true'
+              - column:
+                  name: priority
+                  value: '2'
