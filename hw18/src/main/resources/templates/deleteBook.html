@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form id="delete-form">
+    <h3>Are you sure to DELETE this book:</h3>
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" type="text" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <label for="title-input">Title:</label>
+        <input id="title-input" name="title" type="text" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <label for="author-input">Author:</label>
+        <input id="author-input" name="author" type="text" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <label for="genre-input">Genre:</label>
+        <input id="genre-input" name="genre" type="text" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <button type="submit">Delete</button>
+        <a href="allBooks.html" th:href="@{/}"><button type="button">Cancel</button></a>
+    </div>
+</form>
+
+<script>
+    var url = new URL(window.location.href);
+    var path = url.pathname.split('/');
+    var id = path[path.length - 1];
+
+    fetch('/api/books/' + id)
+        .then(response => response.json())
+        .then(book => {
+
+            var idInput = document.getElementById('id-input');
+            idInput.value = book.id;
+
+            var titleInput = document.getElementById('title-input');
+            titleInput.value = book.title;
+
+            var authorInput = document.getElementById('author-input');
+            authorInput.value = book.author.fullName;
+
+            var genreInput = document.getElementById('genre-input');
+            genreInput.value = book.genre.name;
+        })
+        .catch(error => console.log(error));
+
+    window.onload = function() {
+        var form = document.getElementById('delete-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch('/api/books/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error));
+
+            window.location.href = '/';
+        });
+    };
+</script>
+</body>
+</html>
